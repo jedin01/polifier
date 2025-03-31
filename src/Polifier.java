@@ -1,36 +1,39 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Polifier {
 
+    private Pattern padrao;
+    private Matcher matcher;
+    private Integer grau;
+    private List<String[]> montardor;
 
-    private final String expressao;
-    private List<Pattern> regex;
-    public Polifier(String expressao){
-        this.expressao = expressao;
-        this.regex = new ArrayList<Pattern>();
-        this.simplificar();
+    public Polifier(){
+
+
     }
-    public void selectRegex(){
-        IdentificadorDeEquacoesPolinomiais funcao = new IdentificadorDeEquacoesPolinomiais(this.expressao);
 
-        if(funcao.getMaiorGrau()==1){
-            this.regex.add(Pattern.compile("(\\d*\\.?\\d*?)x(\\^[" + funcao.getMaiorGrau() + "])"));
-            this.regex.add(Pattern.compile("(\\d*\\.?\\d*?)x(\\^[" + funcao.getMaiorGrau() - 1 + "])"));
+    public void simplificar(String expressao){
+        this.grau = new IdentificadorDeEquacoesPolinomiais(expressao).getMaiorGrau();
+
+        this.montardor = new ArrayList<>();
+
+        for (int i = 0; this.grau-i==0; i++){
+            this.padrao = Pattern.compile("([-+]?\\d*\\.?\\d*)x?(\\^[%d]".formatted(this.grau-i));
+            this.matcher = padrao.matcher(expressao);
+            String[] strings = new String[5];
+            while (matcher.find()){
+
+                strings[i] = matcher.group(1);
+                System.out.println(strings[i]);
+
+            }
+            montardor.add(strings);
         }
-        else if (funcao.getMaiorGrau()==2) {
-            this.regex.add(Pattern.compile("(\\d*\\.?\\d*?)x(\\^["+funcao.getMaiorGrau()+"])"));
-            this.regex.add(Pattern.compile("(\\d*\\.?\\d*?)x(\\^["+funcao.getMaiorGrau()-1+"])"));
-        }
+        System.out.println(montardor);
 
-
-    }
-    public void simplificar(){
-
-    }
-    public String getSimplified(){
-        return this.expressao;
     }
 
 }
