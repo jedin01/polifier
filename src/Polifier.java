@@ -11,8 +11,7 @@ public class Polifier {
     private List<String[]> montardor;
 
     public Polifier(){
-
-
+            // there's nothing to do with cats and dogs!
     }
 
     public void simplificar(String expressao){
