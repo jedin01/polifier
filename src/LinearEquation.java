@@ -7,7 +7,7 @@ public class LinearEquation {
     private String leiFormacao;
     private Double coeficienteAngular;
     private Double coeficienteLinear;
-    private List<Object> raizes;
+    private List<Object> raiz;
     private int grau;
     private String monotonia;
     private HashMap<String, Object> coeficientes;
@@ -15,7 +15,7 @@ public class LinearEquation {
     public LinearEquation(String expressao){
 
         this.grau = 1;
-        this.raizes = new ArrayList<>();
+        this.raiz = new ArrayList<>();
         this.estudoCompleto = new HashMap<>();
         this.coeficienteAngular=Double.parseDouble(expressao.substring(0, expressao.indexOf("x")));
         this.coeficienteLinear=Double.parseDouble(expressao.substring(expressao.indexOf("x")+1, expressao.length()));
@@ -31,9 +31,9 @@ public class LinearEquation {
         return leiFormacao;
     }
 
-    public List<Object> getRaizes(){
+    public List<Object> getRaiz(){
         calcularRaizes();
-        return this.raizes;
+        return this.raiz;
     }
 
     public Double getCoeficienteAngular() {
@@ -56,15 +56,15 @@ public class LinearEquation {
     // logica
     private void calcularRaizes() {
         if(coeficienteLinear>0){
-            this.raizes.add(-coeficienteLinear/coeficienteAngular);
+            this.raiz.add(-coeficienteLinear/coeficienteAngular);
         }
         else{
-            this.raizes.add(coeficienteLinear/coeficienteAngular);
+            this.raiz.add(coeficienteLinear/coeficienteAngular);
         }
     }
 
     public HashMap<String, Object> getEstudoCompleto(){
-        estudoCompleto.put("raizes", raizes);
+        estudoCompleto.put("raizes", raiz);
         estudoCompleto.put("dominio", "R");
         estudoCompleto.put("coeficientes", coeficientes);
         return estudoCompleto;
